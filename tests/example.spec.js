@@ -2,7 +2,23 @@
 import { test, expect } from '@playwright/test';
 import path from 'path';
 
-test('has title', async ({ page, context }) => {
+let context;
+let page;
+test.beforeAll(async ({ browser }) => { 
+  context = await browser.newContext();
+  await context.tracing.start({
+    screenshots: true,
+    snapshots: true
+  });
+  page = await context.newPage();
+} );
+
+test.afterAll(async () => {
+  await context.tracing.stop({path: 'test3_trace.zip'});
+  await context.close();
+})
+
+test('has title', async ({}) => {
 
 
   await page.goto('https://playwright.dev/');
@@ -14,12 +30,12 @@ test('has title', async ({ page, context }) => {
 
 });
 
-test('get started link', async ({ page, context }) => {
+test('get started link', async ({}) => {
 
-  await context.tracing.start({
-    screenshots: true,
-    snapshots: true
-  });
+  //await context.tracing.start({
+   // screenshots: true,
+   // snapshots: true
+  // });
 
 
   await page.goto('https://playwright.dev/');
@@ -30,6 +46,6 @@ test('get started link', async ({ page, context }) => {
   // Expects page to have a heading with the name of Installation.
   await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
 
-  await context.tracing.stop({path: 'test2_trace.zip'});
+  //await context.tracing.stop({path: 'test3_trace.zip'});
 
 });
