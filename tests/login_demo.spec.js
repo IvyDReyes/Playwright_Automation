@@ -21,24 +21,19 @@ test("Login Demo Test 1", async ({ page }) => {
   await page.locator('[placeholder="Enter your username"]').fill("Yumi");
   await page.locator('[placeholder="Enter your password"]').fill("12345");
   await page.locator("text=Sign in").click();
-  await page.waitForTimeout(5000);
+  // await page.waitForTimeout(5000);
 });
 
-test("Login Demo Test 2", async ({ page }) => {
-  await page.goto(
-    "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login"
-  );
+test.only("Login Demo Test 2", async ({ page }) => {
+  await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
   await page.pause();
-  await page.locator('[name="username"]').fill("Admin");
-  await page.locator('[name="password"]').fill("admin123");
-  await page.locator('button[type="submit"]').click();
-  await page
-    .locator('[class="oxd-icon bi-caret-down-fill oxd-userdropdown-icon"]')
-    .click();
-  await page.locator('a[href="/web/index.php/auth/logout"]').click();
-  await page.waitForTimeout(5000);
+  await page.getByRole('textbox', { name: 'Username' }).click();
+  await page.getByRole('textbox', { name: 'Username' }).fill('Admin');
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('admin123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('listitem').filter({ hasText: 'mandaAliceTestJean' }).locator('i').click();
+  await page.getByRole('menuitem', { name: 'Logout' }).click();
+
 });
 
-test.only("Login Demo Test 3", async ({ page }) => {
-  await page.pause();
-});
