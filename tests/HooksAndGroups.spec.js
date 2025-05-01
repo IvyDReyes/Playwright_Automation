@@ -26,6 +26,7 @@ test.describe("All My Tests", () => {
       .click();
     await page.locator('[data-test="item-1-title-link"]').click();
     await page.locator('[data-test="add-to-cart"]').click();
+    test.slow();
   });
 
   test("logout", async ({ page }) => {

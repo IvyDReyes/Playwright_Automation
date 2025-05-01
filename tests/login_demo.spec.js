@@ -15,16 +15,17 @@ import { test, expect } from "@playwright/test";
 import { time } from "console";
 import { link } from "fs";
 
-test("Login Demo Test 1", async ({ page }) => {
+test.only("Login Demo Test 1", async ({ page }) => {
   await page.goto("https://demo.applitools.com/");
   //await page.pause()
   await page.locator('[placeholder="Enter your username"]').fill("Yumi");
   await page.locator('[placeholder="Enter your password"]').fill("12345");
   await page.locator("text=Sign in").click();
+  test.slow();
   // await page.waitForTimeout(5000);
 });
 
-test.only("Login Demo Test 2", async ({ page }) => {
+test("Login Demo Test 2", async ({ page }) => {
   await page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
   await page.pause();
   await page.getByRole('textbox', { name: 'Username' }).click();
